@@ -5,8 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "eslint": "eslint",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write --ignore-unknown",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -30,6 +33,8 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
-    "@types/nprogress": "^0.2.0"
+    "@types/nprogress": "^0.2.0",
+    "husky": "^8.0.0",
+    "prettier": "^2.8.8"
   }
 }

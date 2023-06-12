@@ -39,7 +39,7 @@ const LoginPage: FC<any> = () => {
     useEffect(() => {
         const tmp = localStorage.getItem("data");
         if (tmp) router.push("/dashboard/user");
-    }, []);
+    }, [router]);
 
     return (
         <Box width="100vw" height="100vh" display="flex" justifyContent="center" alignItems="center">
