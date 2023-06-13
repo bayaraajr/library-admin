@@ -11,7 +11,7 @@ const LoginPage: FC<any> = () => {
     const router = useRouter();
     const onSubmit = async (values: any) => {
         try {
-            const response = await axios.post("/api/user/login", values);
+            const response = await axios.post("/api/admin/login", values);
             toast.success("Тавтай морил " + response.data.firstname);
             localStorage.setItem("data", JSON.stringify(response.data));
             router.push("/dashboard/user");
