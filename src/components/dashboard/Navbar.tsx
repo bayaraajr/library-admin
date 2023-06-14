@@ -8,7 +8,7 @@ import React, { FC } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/system";
 
 const Navbar: FC<any> = (props) => {
-    const { user } = useSession();
+    // const { user } = useSession();
     const router = useRouter();
     const logout = () => {
         localStorage.clear();
