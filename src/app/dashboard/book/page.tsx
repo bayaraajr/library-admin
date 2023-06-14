@@ -9,7 +9,7 @@ const BookPage: FC<any> = () => {
 
     const fetchBooks = async () => {
         try {
-            const response = await axios.get("/api/book/find");
+            const response = await axios.post("/api/book/find", {});
             setBooks(response.data.content);
         } catch (error) {}
     };
