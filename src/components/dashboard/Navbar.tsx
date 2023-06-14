@@ -5,6 +5,7 @@ import { AppBar, IconButton, Toolbar } from "@mui/material";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import { useRouter } from "next/navigation";
 import React, { FC } from "react";
+import { styled, createTheme, ThemeProvider } from "@mui/system";
 
 const Navbar: FC<any> = (props) => {
     const { user } = useSession();
@@ -13,12 +14,11 @@ const Navbar: FC<any> = (props) => {
         localStorage.clear();
         router.push("/login");
     };
-
     return (
         <AppBar>
             <Toolbar>
                 {/* <div>Hello {user.firstname}</div> */}
-                <IconButton onClick={logout}>
+                <IconButton>
                     <Logout />
                 </IconButton>
                 <IconButton>
