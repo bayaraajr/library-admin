@@ -15,7 +15,7 @@ const LoginPage: FC<any> = () => {
             const response = await axios.post("/api/admin/login", values);
             toast.success("Тавтай морил " + response.data.firstname);
             localStorage.setItem("data", JSON.stringify(response.data));
-            router.push("/dashboard/user");
+            router.push("/dashboard/");
         } catch (error: any) {
             toast.error(error.response.data.message);
             console.log(error);

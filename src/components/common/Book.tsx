@@ -13,7 +13,7 @@ const Book: FC<BookProps> = ({ isbn, name, coverUrl }) => {
         <Card elevation={4} sx={{ padding: 0, borderRadius: 2 }}>
             {
                 // eslint-disable-next-line
-            }<img alt={name} src={coverUrl} style={{ width: "100%" }} />
+            }<img alt={name} src={"/public/uploads/" + coverUrl} style={{ width: "100%" }} />
             <Box padding={2}>
                 <Typography>{isbn}</Typography>
                 <Typography>{name}</Typography>
