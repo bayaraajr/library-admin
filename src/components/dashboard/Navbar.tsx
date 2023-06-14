@@ -18,7 +18,7 @@ const Navbar: FC<any> = (props) => {
         <AppBar>
             <Toolbar>
                 {/* <div>Hello {user.firstname}</div> */}
-                <IconButton>
+                <IconButton onClick={logout}>
                     <Logout />
                 </IconButton>
                 <IconButton>
