@@ -3,10 +3,11 @@ import * as yup from "yup";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
-import React, { FC, useEffect, useState } from "react";
-import { Alert, Box, Card, Grid, Snackbar, TextField, Typography } from "@mui/material";
+import React, { FC, useEffect } from "react";
+import { Box, Grid, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { toast } from "react-hot-toast";
+
 const LoginPage: FC<any> = () => {
     const router = useRouter();
     const onSubmit = async (values: any) => {
@@ -14,7 +15,7 @@ const LoginPage: FC<any> = () => {
             const response = await axios.post("/api/admin/login", values);
             toast.success("Тавтай морил " + response.data.firstname);
             localStorage.setItem("data", JSON.stringify(response.data));
-            router.push("/dashboard/user");
+            router.push("/dashboard/");
         } catch (error: any) {
             toast.error(error.response.data.message);
             console.log(error);

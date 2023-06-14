@@ -7,6 +7,7 @@ import theme from "@library/theme";
 import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     // const router = useRouter();
     // useEffect(() => {
