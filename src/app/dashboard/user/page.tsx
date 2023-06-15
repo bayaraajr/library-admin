@@ -72,7 +72,7 @@ const LoginPage: FC<any> = () => {
                     </Button>
                 </Box>
             </Grid>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
                 <form onSubmit={form.handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={2}>
@@ -112,19 +112,17 @@ const LoginPage: FC<any> = () => {
                             />
                         </Grid>
                         <Grid item xs={2}>
-                            <FormControl>
-                                <FormLabel>Хүйс</FormLabel>
-                                <RadioGroup
-                                    row
-                                    arie-label="gender"
-                                    name="gender"
-                                    value={value}
-                                    onChange={form.handleChange}
-                                >
-                                    <FormControlLabel value="F" control={<Radio />} label="Эмэгтэй" />
-                                    <FormControlLabel value="M" control={<Radio />} label="Эрэгтэй" />
-                                </RadioGroup>
-                            </FormControl>
+                            <TextField
+                                // value={form.values.gender}
+                                name="gender"
+                                fullWidth
+                                select
+                                onChange={form.handleChange}
+                            >
+                                <MenuItem>Бүгд</MenuItem>
+                                <MenuItem value="M">Эрэгтэй</MenuItem>
+                                <MenuItem value="F">Эмэгтэй</MenuItem>
+                            </TextField>
                         </Grid>
                         <Grid item xs={2}>
                             <Button size="large" startIcon={<SearchOutlined />} type="submit">

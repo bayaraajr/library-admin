@@ -1,5 +1,6 @@
 "use client";
 import useSession from "@library/hooks/useSession";
+import { useRouter } from "next/navigation";
 import { MenuItem, MenuList, ListItemIcon, ListItemText, Box } from "@mui/material";
 import React, { FC, useState, useEffect } from "react";
 import PersonIcon from "@mui/icons-material/Person";
@@ -9,34 +10,33 @@ import CategoryIcon from "@mui/icons-material/Category";
 
 const Sidebar: FC<any> = (props) => {
     const { user } = useSession();
+    const router = useRouter();
     return (
         <MenuList sx={{ marginTop: "60px", width: "150px" }}>
-            <Box>
-                <MenuItem>
-                    <ListItemIcon>
-                        <AdminPanelSettingsIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Админ</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <PersonIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>User</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <BookIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Book</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <CategoryIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Category</ListItemText>
-                </MenuItem>
-            </Box>
+            <MenuItem onClick={() => router.push("/dashboard/admin")}>
+                <ListItemIcon>
+                    <AdminPanelSettingsIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Админ</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={() => router.push("/dashboard/user")}>
+                <ListItemIcon>
+                    <PersonIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>User</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={() => router.push("/dashboard/book")}>
+                <ListItemIcon>
+                    <BookIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Book</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={() => router.push("/dashboard/category")}>
+                <ListItemIcon>
+                    <CategoryIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Category</ListItemText>
+            </MenuItem>
         </MenuList>
     );
 };
