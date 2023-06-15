@@ -5,9 +5,14 @@ import { AddOutlined, SearchOutlined } from "@mui/icons-material";
 import {
     Box,
     Button,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
     Grid,
     MenuItem,
     Pagination,
+    Radio,
+    RadioGroup,
     Table,
     TableBody,
     TableCell,
@@ -52,6 +57,7 @@ const LoginPage: FC<any> = () => {
         //eslint-disable-next-line
     }, [page, size]);
 
+    const [value, setValue] = React.useState("female");
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -66,10 +72,10 @@ const LoginPage: FC<any> = () => {
                     </Button>
                 </Box>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} >
                 <form onSubmit={form.handleSubmit}>
                     <Grid container spacing={2}>
-                        <Grid item xs={6} lg={3}>
+                        <Grid item xs={2}>
                             <TextField
                                 fullWidth
                                 label="Нэр"
@@ -78,7 +84,7 @@ const LoginPage: FC<any> = () => {
                                 onChange={form.handleChange}
                             />
                         </Grid>
-                        <Grid item xs={6} lg={3}>
+                        <Grid item xs={2}>
                             <TextField
                                 fullWidth
                                 label="Овог"
@@ -87,8 +93,41 @@ const LoginPage: FC<any> = () => {
                                 onChange={form.handleChange}
                             />
                         </Grid>
-                        <Grid item xs={6} lg={3}>
-                            <Button size="small" startIcon={<SearchOutlined />} type="submit">
+                        <Grid item xs={2}>
+                            <TextField
+                                fullWidth
+                                label="И-мэйл"
+                                size="small"
+                                name="email"
+                                onChange={form.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextField
+                                fullWidth
+                                label="Утасны дугаар"
+                                size="small"
+                                name="phone"
+                                onChange={form.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <FormControl>
+                                <FormLabel>Хүйс</FormLabel>
+                                <RadioGroup
+                                    row
+                                    arie-label="gender"
+                                    name="gender"
+                                    value={value}
+                                    onChange={form.handleChange}
+                                >
+                                    <FormControlLabel value="F" control={<Radio />} label="Эмэгтэй" />
+                                    <FormControlLabel value="M" control={<Radio />} label="Эрэгтэй" />
+                                </RadioGroup>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Button size="large" startIcon={<SearchOutlined />} type="submit">
                                 Хайх
                             </Button>
                         </Grid>
