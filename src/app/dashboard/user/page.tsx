@@ -1,13 +1,19 @@
 "use client";
 import useSession from "@library/hooks/useSession";
 import { IUser } from "@library/types";
-import { AddOutlined, SearchOutlined } from "@mui/icons-material";
+import { AddOutlined, Delete, SearchOutlined } from "@mui/icons-material";
 import {
     Box,
     Button,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
     Grid,
+    IconButton,
     MenuItem,
     Pagination,
+    Radio,
+    RadioGroup,
     Table,
     TableBody,
     TableCell,
@@ -52,8 +58,9 @@ const LoginPage: FC<any> = () => {
         //eslint-disable-next-line
     }, [page, size]);
 
+    const [value, setValue] = React.useState("female");
     return (
-        <Grid container spacing={2}>
+        <Grid item xs={12} container spacing={2}>
             <Grid item xs={12}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Typography>Хэрэлэгчийн жагсаалт</Typography>
@@ -69,7 +76,7 @@ const LoginPage: FC<any> = () => {
             <Grid item xs={12}>
                 <form onSubmit={form.handleSubmit}>
                     <Grid container spacing={2}>
-                        <Grid item xs={6} lg={3}>
+                        <Grid item xs={2}>
                             <TextField
                                 fullWidth
                                 label="Нэр"
@@ -78,7 +85,7 @@ const LoginPage: FC<any> = () => {
                                 onChange={form.handleChange}
                             />
                         </Grid>
-                        <Grid item xs={6} lg={3}>
+                        <Grid item xs={2}>
                             <TextField
                                 fullWidth
                                 label="Овог"
@@ -87,8 +94,40 @@ const LoginPage: FC<any> = () => {
                                 onChange={form.handleChange}
                             />
                         </Grid>
-                        <Grid item xs={6} lg={3}>
-                            <Button size="small" startIcon={<SearchOutlined />} type="submit">
+                        <Grid item xs={2}>
+                            <TextField
+                                fullWidth
+                                label="И-мэйл"
+                                size="small"
+                                name="email"
+                                onChange={form.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextField
+                                fullWidth
+                                label="Утасны дугаар"
+                                size="small"
+                                name="phone"
+                                onChange={form.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextField
+                                size="small"
+                                // value={form.values.gender}
+                                name="gender"
+                                fullWidth
+                                select
+                                onChange={form.handleChange}
+                            >
+                                <MenuItem>Бүгд</MenuItem>
+                                <MenuItem value="M">Эрэгтэй</MenuItem>
+                                <MenuItem value="F">Эмэгтэй</MenuItem>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Button size="large" startIcon={<SearchOutlined />} type="submit">
                                 Хайх
                             </Button>
                         </Grid>
@@ -106,6 +145,7 @@ const LoginPage: FC<any> = () => {
                                 <TableCell>И-мэйл</TableCell>
                                 <TableCell>Утасны дугаар</TableCell>
                                 <TableCell>Хүйс</TableCell>
+                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -117,6 +157,11 @@ const LoginPage: FC<any> = () => {
                                     <TableCell>{user.email}</TableCell>
                                     <TableCell>{user.phone}</TableCell>
                                     <TableCell>{user.gender === "F" ? "Эмэгтэй" : "Эрэгтэй"}</TableCell>
+                                    <TableCell>
+                                        <IconButton color="error">
+                                            <Delete />
+                                        </IconButton>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

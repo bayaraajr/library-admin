@@ -12,7 +12,7 @@ const Sidebar: FC<any> = (props) => {
     const { user } = useSession();
     const router = useRouter();
     return (
-        <MenuList sx={{ marginTop: "60px", width: "150px" }}>
+        <MenuList sx={{ width: "100%" }}>
             <MenuItem onClick={() => router.push("/dashboard/admin")}>
                 <ListItemIcon>
                     <AdminPanelSettingsIcon fontSize="small" />
