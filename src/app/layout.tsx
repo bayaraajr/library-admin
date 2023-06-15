@@ -5,8 +5,11 @@ import { Inter } from "next/font/google";
 // import { useRouter } from "next/router";
 import theme from "@library/theme";
 import { Toaster } from "react-hot-toast";
+// import NextTopLoader from "nextjs-toploader";
+
 import "@library/utils/interceptor";
 const inter = Inter({ subsets: ["latin"] });
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     // const router = useRouter();
     // useEffect(() => {
@@ -28,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="en">
             <body className={inter.className}>
                 {/* <NProgress /> */}
+                {/* <NextTopLoader color="#FF0000" height={100} /> */}
                 <Toaster />
                 <ThemeProvider theme={theme}>{children}</ThemeProvider>
             </body>
