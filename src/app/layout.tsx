@@ -7,7 +7,14 @@ import theme from "@library/theme";
 import { Toaster } from "react-hot-toast";
 import "@library/utils/interceptor";
 const inter = Inter({ subsets: ["latin"] });
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+    const router = useRouter();
+    useEffect(() => {
+        router.push("/dashboard");
+    });
     // const router = useRouter();
     // useEffect(() => {
     //     const handleRouteStart = () => NProgress.start();
