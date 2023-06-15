@@ -59,7 +59,7 @@ const LoginPage: FC<any> = () => {
 
     const [value, setValue] = React.useState("female");
     return (
-        <Grid container spacing={2}>
+        <Grid item xs={12} container spacing={2}>
             <Grid item xs={12}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Typography>Хэрэлэгчийн жагсаалт</Typography>
@@ -113,6 +113,7 @@ const LoginPage: FC<any> = () => {
                         </Grid>
                         <Grid item xs={2}>
                             <TextField
+                                size="small"
                                 // value={form.values.gender}
                                 name="gender"
                                 fullWidth
