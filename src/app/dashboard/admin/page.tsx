@@ -1,19 +1,13 @@
 "use client";
 import useSession from "@library/hooks/useSession";
-import { IUser } from "@library/types";
-import { AddOutlined, Delete, SearchOutlined } from "@mui/icons-material";
+import { IAdmin } from "@library/types";
+import { AddOutlined, SearchOutlined } from "@mui/icons-material";
 import {
     Box,
     Button,
-    FormControl,
-    FormControlLabel,
-    FormLabel,
     Grid,
-    IconButton,
     MenuItem,
     Pagination,
-    Radio,
-    RadioGroup,
     Table,
     TableBody,
     TableCell,
@@ -32,7 +26,7 @@ import React, { FC, useCallback, useEffect, useState } from "react";
 const LoginPage: FC<any> = () => {
     const { user } = useSession();
     const router = useRouter();
-    const [users, setUsers] = useState<Array<IUser>>([]);
+    const [admins, setAdmins] = useState<Array<IAdmin>>([]);
     const [page, setPage] = useState<number>(0);
     const [size, setSize] = useState<number>(100);
     const [totalPage, setTotalPage] = useState<number>(1);
@@ -40,8 +34,8 @@ const LoginPage: FC<any> = () => {
     const fetchUsers = useCallback(
         async (values: any) => {
             try {
-                const response = await axios.post("/api/user/find", values, { params: { page, size } });
-                setUsers(response.data.content);
+                const response = await axios.post("/api/admin/find", values, { params: { page, size } });
+                setAdmins(response.data.content);
                 setTotalPage(response.data.totalPage);
             } catch (error) {}
         },
@@ -58,25 +52,24 @@ const LoginPage: FC<any> = () => {
         //eslint-disable-next-line
     }, [page, size]);
 
-    const [value, setValue] = React.useState("female");
     return (
-        <Grid item xs={12} container spacing={2}>
+        <Grid container spacing={2}>
             <Grid item xs={12}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Typography>Хэрэлэгчийн жагсаалт</Typography>
+                    <Typography>Админ жагсаалт</Typography>
                     <Button
                         variant="contained"
-                        onClick={() => router.push("/dashboard/user/register")}
+                        onClick={() => router.push("/dashboard/admin/register")}
                         startIcon={<AddOutlined />}
                     >
-                        Хэрэглэгч бүртгэх
+                        Админ бүртгэх
                     </Button>
                 </Box>
             </Grid>
             <Grid item xs={12}>
                 <form onSubmit={form.handleSubmit}>
                     <Grid container spacing={2}>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} lg={3}>
                             <TextField
                                 fullWidth
                                 label="Нэр"
@@ -85,7 +78,7 @@ const LoginPage: FC<any> = () => {
                                 onChange={form.handleChange}
                             />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={6} lg={3}>
                             <TextField
                                 fullWidth
                                 label="Овог"
@@ -94,40 +87,8 @@ const LoginPage: FC<any> = () => {
                                 onChange={form.handleChange}
                             />
                         </Grid>
-                        <Grid item xs={2}>
-                            <TextField
-                                fullWidth
-                                label="И-мэйл"
-                                size="small"
-                                name="email"
-                                onChange={form.handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <TextField
-                                fullWidth
-                                label="Утасны дугаар"
-                                size="small"
-                                name="phone"
-                                onChange={form.handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <TextField
-                                size="small"
-                                // value={form.values.gender}
-                                name="gender"
-                                fullWidth
-                                select
-                                onChange={form.handleChange}
-                            >
-                                <MenuItem>Бүгд</MenuItem>
-                                <MenuItem value="M">Эрэгтэй</MenuItem>
-                                <MenuItem value="F">Эмэгтэй</MenuItem>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Button size="large" startIcon={<SearchOutlined />} type="submit">
+                        <Grid item xs={6} lg={3}>
+                            <Button size="small" startIcon={<SearchOutlined />} type="submit">
                                 Хайх
                             </Button>
                         </Grid>
@@ -145,23 +106,17 @@ const LoginPage: FC<any> = () => {
                                 <TableCell>И-мэйл</TableCell>
                                 <TableCell>Утасны дугаар</TableCell>
                                 <TableCell>Хүйс</TableCell>
-                                <TableCell></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {users.map((user: IUser, index: number) => (
+                            {admins.map((admin: IAdmin, index: number) => (
                                 <TableRow key={index}>
-                                    <TableCell>{user._id}</TableCell>
-                                    <TableCell>{user.firstname}</TableCell>
-                                    <TableCell>{user.lastname}</TableCell>
-                                    <TableCell>{user.email}</TableCell>
-                                    <TableCell>{user.phone}</TableCell>
-                                    <TableCell>{user.gender === "F" ? "Эмэгтэй" : "Эрэгтэй"}</TableCell>
-                                    <TableCell>
-                                        <IconButton color="error">
-                                            <Delete />
-                                        </IconButton>
-                                    </TableCell>
+                                    <TableCell>{admin._id}</TableCell>
+                                    <TableCell>{admin.firstname}</TableCell>
+                                    <TableCell>{admin.lastname}</TableCell>
+                                    <TableCell>{admin.email}</TableCell>
+                                    <TableCell>{admin.phone}</TableCell>
+                                    <TableCell>{admin.gender === "F" ? "Эмэгтэй" : "Эрэгтэй"}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
