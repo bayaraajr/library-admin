@@ -1,4 +1,4 @@
-export default interface IUSer {
+export default interface IAdmin {
     lastname: string;
     firstname: string;
     email: string;

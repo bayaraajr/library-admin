@@ -42,9 +42,11 @@ const RegisterPage: FC<any> = () => {
             lastname: yup.string().required("Заавал оруулна уу"),
             gender: yup.string().required("Хүйс сонгоно уу"),
             email: yup.string().email("Зөв и-мэйл оруулна уу").required("Заавал оруулна уу"),
-            // @TODO: validation regex
-            // registrationNumber: yup.string().matches(/0-9/, "Зөв РД оруул").required("Заавал оруулна уу"),
-            registrationNumber: yup.string().required("Заавал оруулна уу"),
+            registrationNumber: yup
+                .string()
+                //.matches(/r'^[\p{Script=Mongolian}]{2}\d{8}$/, "Зөв РД оруул")
+
+                .required("Заавал оруулна уу"),
             phone: yup
                 .number()
                 .min(10000000, "8 урттай байна")
