@@ -1,10 +1,15 @@
 "use client";
 import useSession from "@library/hooks/useSession";
 import { IUser } from "@library/types";
-import { AddOutlined, Delete, SearchOutlined } from "@mui/icons-material";
+import { AddOutlined, Delete, SearchOutlined, Edit } from "@mui/icons-material";
 import {
     Box,
     Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
     FormControl,
     FormControlLabel,
     FormLabel,
@@ -33,6 +38,7 @@ const LoginPage: FC<any> = () => {
     const { user } = useSession();
     const router = useRouter();
     const [users, setUsers] = useState<Array<IUser>>([]);
+    const [selectedUser, setSelectedUser] = useState<string | null>(null); //user iin idg end avna
     const [page, setPage] = useState<number>(0);
     const [size, setSize] = useState<number>(100);
     const [totalPage, setTotalPage] = useState<number>(1);
@@ -57,6 +63,29 @@ const LoginPage: FC<any> = () => {
         fetchUsers({});
         //eslint-disable-next-line
     }, [page, size]);
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = (userId: string) => {
+        setSelectedUser(userId);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const deleteUser = useCallback(
+        async (userId: string) => {
+            console.log(userId);
+            try {
+                await axios.delete(`/api/user/${selectedUser}`); //temdeglegdsen idg selected duudaj avna
+                fetchUsers({});
+                handleClose();
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        [fetchUsers, selectedUser]
+    );
 
     const [value, setValue] = React.useState("female");
     return (
@@ -158,8 +187,28 @@ const LoginPage: FC<any> = () => {
                                     <TableCell>{user.phone}</TableCell>
                                     <TableCell>{user.gender === "F" ? "Эмэгтэй" : "Эрэгтэй"}</TableCell>
                                     <TableCell>
-                                        <IconButton color="error">
+                                        <IconButton color="error" onClick={() => handleClickOpen(user._id)}>
                                             <Delete />
+                                            <Dialog
+                                                open={open}
+                                                onClose={handleClose}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+                                            >
+                                                <DialogTitle id="alert-dialog-title">{"Хэрэглэгч устгах"}</DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText id="alert-dialog-description">
+                                                        Та дараах хэрэглэгчийг устгахыг зөвшөөрч байна уу?
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={handleClose}>Үгүй</Button>
+                                                    <Button onClick={() => deleteUser(user._id)}>Тийм</Button>
+                                                </DialogActions>
+                                            </Dialog>
+                                        </IconButton>
+                                        <IconButton>
+                                            <Edit onClick={() => router.push("/dashboard/user/update")} />
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>
