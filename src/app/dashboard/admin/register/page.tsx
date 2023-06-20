@@ -58,7 +58,7 @@ const RegisterPage: FC<any> = () => {
         <Grid container spacing={2} item xs={12}>
             <Grid item xs={12}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Typography>Хэрэглэгч бүртгэх </Typography>
+                    <Typography>Админ бүртгэх </Typography>
                     <Button variant="contained" onClick={() => router.back()} startIcon={<ArrowLeft />}>
                         Буцах
                     </Button>
