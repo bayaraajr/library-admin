@@ -189,27 +189,29 @@ const LoginPage: FC<any> = () => {
                                     <TableCell>
                                         <IconButton color="error" onClick={() => handleClickOpen(admin._id)}>
                                             <Delete />
-                                            <Dialog
-                                                open={open}
-                                                onClose={handleClose}
-                                                aria-labelledby="alert-dialog-title"
-                                                aria-describedby="alert-dialog-description"
-                                            >
-                                                <DialogTitle id="alert-dialog-title">{"Хэрэглэгч устгах"}</DialogTitle>
-                                                <DialogContent>
-                                                    <DialogContentText id="alert-dialog-description">
-                                                        Та дараах хэрэглэгчийг устгахыг зөвшөөрч байна уу?
-                                                    </DialogContentText>
-                                                </DialogContent>
-                                                <DialogActions>
-                                                    <Button onClick={handleClose}>Үгүй</Button>
-                                                    <Button onClick={() => deleteUser(admin._id)}>Тийм</Button>
-                                                </DialogActions>
-                                            </Dialog>
                                         </IconButton>
+                                        <Dialog
+                                            open={open}
+                                            onClose={handleClose}
+                                            aria-labelledby="alert-dialog-title"
+                                            aria-describedby="alert-dialog-description"
+                                        >
+                                            <DialogTitle id="alert-dialog-title">{"Хэрэглэгч устгах"}</DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText id="alert-dialog-description">
+                                                    Та дараах хэрэглэгчийг устгахыг зөвшөөрч байна уу?
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={handleClose}>Үгүй</Button>
+                                                <Button onClick={() => deleteUser(admin._id)}>Тийм</Button>
+                                            </DialogActions>
+                                        </Dialog>
+                                        {/*  */}
                                         <IconButton>
-                                            <Edit onClick={() => router.push("/dashboard/admin/update")} />
+                                            <Edit onClick={() => router.push("/dashboard/admin/update/" + admin._id)} />
                                         </IconButton>
+                                        {/*  */}
                                     </TableCell>
                                 </TableRow>
                             ))}
