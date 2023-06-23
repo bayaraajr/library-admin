@@ -76,6 +76,7 @@ const RegisterPage: FC<any> = ({ params }: { params: { adminId: string } }) => {
     };
     useEffect(() => {
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -118,8 +119,12 @@ const RegisterPage: FC<any> = ({ params }: { params: { adminId: string } }) => {
                             name="registrationNumber"
                             label="РД"
                             onChange={form.handleChange}
-                            error={Boolean(form.errors.registrationNumber)}
-                            helperText={form.errors.registrationNumber}
+                            error={form.touched.registrationNumber && Boolean(form.errors.registrationNumber)}
+                            helperText={
+                                form.touched.registrationNumber && form.errors.registrationNumber ? (
+                                    <>{form.errors.registrationNumber}</>
+                                ) : null
+                            }
                             value={form.values.registrationNumber}
                         />
                     </Grid>
@@ -177,7 +182,7 @@ const RegisterPage: FC<any> = ({ params }: { params: { adminId: string } }) => {
                             value={form.values.password}
                         />
                     </Grid> */}
-                    <Grid item align="right" xs={12}>
+                    <Grid container item display="flex" justifyContent="flex-end" xs={12}>
                         <LoadingButton
                             loading={form.isSubmitting}
                             variant="contained"

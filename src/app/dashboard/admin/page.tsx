@@ -46,8 +46,9 @@ const LoginPage: FC<any> = () => {
     const fetchUsers = useCallback(
         async (values: any) => {
             try {
-                const response = await axios.post("/api/admin/find", values, { params: { page, size } });
+                const response = await axios.post("/api/admin/find/", values, { params: { page, size } });
                 setAdmins(response.data.content);
+                console.log(response.data.content);
                 setTotalPage(response.data.totalPage);
             } catch (error) {}
         },

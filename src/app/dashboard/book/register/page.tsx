@@ -15,11 +15,24 @@ const RegisterPage: FC<any> = () => {
     const router = useRouter();
     const [books, setBooks] = useState();
     const [file, setFile] = useState<File>();
-    const [category, setCategory] = useState([]);
+    const [category, setCategory] = useState<Array<IBook>>([]);
 
     const onFileChange = (event: any) => {
         setFile(event.target.files[0]);
     };
+    const fetchCategory = async () => {
+        try {
+            const response = await axios.post("/api/category/find/", {});
+            setCategory(response.data.content);
+            console.log(response.data.content);
+        } catch (error: any) {
+            toast.error(error.response ? error.response.data.message : "Алдаа гарлаа");
+        }
+    };
+    useEffect(() => {
+        fetchCategory();
+        //eslint-disable-next-line
+    }, []);
 
     const onSubmit = async (values: IBook) => {
         const formData = new FormData();
@@ -112,15 +125,17 @@ const RegisterPage: FC<any> = () => {
                             onChange={(newValue) => form.setFieldValue("publicationDate", newValue)}
                         />
                     </Grid>
-                    {/* <Grid item xs={12} md={6} lg={2}>
-                        <TextField fullWidth select name="category" onChange={form.handleChange}>
-                            {category.map((c: any, i) => (
-                                <MenuItem key={i} value={c._id}>
-                                    {c.name}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                    </Grid> */}
+                    <Grid item xs={12} md={6} lg={2}>
+                        {category.length > 0 ? (
+                            <TextField fullWidth select label="category" name="category" onChange={form.handleChange}>
+                                {category.map((c: IBook, index: number) => (
+                                    <MenuItem key={index} value={c.name}>
+                                        {c.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        ) : null}
+                    </Grid>
                     <Grid item xs={12} md={6} lg={3}>
                         <TextField
                             fullWidth
@@ -137,7 +152,7 @@ const RegisterPage: FC<any> = () => {
                             <input type="file" name="file" onChange={onFileChange} />
                         </form>{" "}
                     </Grid>
-                    <Grid item align="right" xs={12}>
+                    <Grid container item display="flex" justifyContent="flex-end" xs={12}>
                         <LoadingButton
                             loading={form.isSubmitting}
                             variant="contained"
