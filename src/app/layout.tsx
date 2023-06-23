@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 // import NextTopLoader from "nextjs-toploader";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import NextNProgress from "nextjs-progressbar";
 
 import "@library/utils/interceptor";
 const inter = Inter({ subsets: ["latin"] });
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en">
             <body className={inter.className}>
+                <NextNProgress />
                 {/* <NProgress /> */}
                 {/* <NextTopLoader color="#FF0000" height={100} /> */}
                 <Toaster />
