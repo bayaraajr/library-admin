@@ -6,6 +6,6 @@ export default interface IUSer {
     coverUrl: String;
     description: String;
     filePath: String;
-    category: String;
+    //category: String;
     [key: string]: any;
 }

@@ -1,5 +1,4 @@
 import {
-    Box,
     Card,
     Typography,
     Button,
@@ -28,13 +27,8 @@ interface BookProps {
 const Book: FC<BookProps> = ({ isbn, name, coverUrl, description, _id, fetchBooks }) => {
     const [showMore, setShowMore] = useState(false);
     const router = useRouter();
-    const [page, setPage] = useState<number>(0);
-    const [size, setSize] = useState<number>(100);
-    const [totalPage, setTotalPage] = useState<number>(1);
     const [selectedBook, setSelectedBook] = useState<string | null>(null); //nomiin id avna
-    const handleClick = () => {
-        setShowMore(!showMore);
-    };
+
     const handleClickOpen = (bookId: string) => {
         setSelectedBook(bookId);
         setOpen(true);
@@ -45,7 +39,7 @@ const Book: FC<BookProps> = ({ isbn, name, coverUrl, description, _id, fetchBook
     const handleClose = () => {
         setOpen(false);
     };
-    const deleteUser = useCallback(
+    const deleteBook = useCallback(
         async (bookId: string) => {
             console.log(bookId);
             try {
@@ -108,7 +102,7 @@ const Book: FC<BookProps> = ({ isbn, name, coverUrl, description, _id, fetchBook
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Үгүй</Button>
-                        <Button onClick={() => deleteUser(_id)}>Тийм</Button>
+                        <Button onClick={() => deleteBook(_id)}>Тийм</Button>
                     </DialogActions>
                 </Dialog>
             </CardContent>

@@ -14,28 +14,31 @@ import IBook from "@library/types/IBook";
 const RegisterPage: FC<any> = () => {
     const router = useRouter();
     const [books, setBooks] = useState();
+    const [file, setFile] = useState<File>();
     const [category, setCategory] = useState([]);
 
+    const onFileChange = (event: any) => {
+        setFile(event.target.files[0]);
+    };
+
     const onSubmit = async (values: IBook) => {
-        try {
-            await axios.post("/api/book", values);
-            toast.success("YES SIR");
-            router.push("/dashboard/book");
-        } catch (error: any) {
-            toast.error(error.response ? error.response.data.message : "Алдаа гарлаа");
+        const formData = new FormData();
+        if (file !== undefined) {
+            formData.append("files", file);
+            try {
+                const response = await axios.post("/api/file/upload", formData);
+                await axios.post("/api/book", {
+                    ...values,
+                    coverUrl: response.data.files[0].filename,
+                    filePath: response.data.files[0].filename,
+                });
+                toast.success("YES SIR");
+                router.push("/dashboard/book");
+            } catch (error: any) {
+                toast.error(error.response ? error.response.data.message : "Алдаа гарлаа");
+            }
         }
     };
-
-    const fetchCategory = async () => {
-        try {
-            const response = await axios.get("/api/catergory/find");
-            setCategory(response.data.content);
-        } catch (error) {}
-    };
-
-    useEffect(() => {
-        fetchCategory();
-    }, []);
 
     const form = useFormik({
         initialValues: {
@@ -43,7 +46,7 @@ const RegisterPage: FC<any> = () => {
             name: "",
             author: "",
             publicationDate: new Date(),
-            category: "",
+            category: "hello",
             description: "",
             coverUrl: "",
             filePath: "",
@@ -75,9 +78,9 @@ const RegisterPage: FC<any> = () => {
                             name="isbn"
                             label="isbn"
                             onChange={form.handleChange}
-                            error={Boolean(form.errors.name)}
-                            helperText={form.errors.name}
-                            value={form.values.name}
+                            error={Boolean(form.errors.isbn)}
+                            helperText={form.errors.isbn}
+                            value={form.values.isbn}
                         />
                     </Grid>
                     <Grid item xs={12} md={6} lg={3}>
@@ -109,7 +112,7 @@ const RegisterPage: FC<any> = () => {
                             onChange={(newValue) => form.setFieldValue("publicationDate", newValue)}
                         />
                     </Grid>
-                    <Grid item xs={12} md={6} lg={2}>
+                    {/* <Grid item xs={12} md={6} lg={2}>
                         <TextField fullWidth select name="category" onChange={form.handleChange}>
                             {category.map((c: any, i) => (
                                 <MenuItem key={i} value={c._id}>
@@ -117,7 +120,7 @@ const RegisterPage: FC<any> = () => {
                                 </MenuItem>
                             ))}
                         </TextField>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} md={6} lg={3}>
                         <TextField
                             fullWidth
@@ -129,8 +132,10 @@ const RegisterPage: FC<any> = () => {
                             value={form.values.description}
                         />
                     </Grid>
-                    <Grid item xs={12} md={6} lg={3} boxSizing={"30px"}>
-                        <input type="file" name="file" />
+                    <Grid item xs={12} md={6} lg={3}>
+                        <form action="/api/file/upload" method="post" encType="multipart/form-data">
+                            <input type="file" name="file" onChange={onFileChange} />
+                        </form>{" "}
                     </Grid>
                     <Grid item align="right" xs={12}>
                         <LoadingButton

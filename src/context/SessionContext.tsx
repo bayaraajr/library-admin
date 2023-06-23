@@ -9,10 +9,10 @@ export const SessionProvider: FC<any> = ({ children }) => {
     const [user, setUser] = useState<any>({});
 
     useEffect(() => {
-        if (!user.firstname) {
+        if (!Boolean(user.firstname)) {
             let tmp = localStorage.getItem("data");
-            if (tmp) setUser(JSON.parse(tmp));
-            else router.push("/login");
+            // if (tmp) setUser(JSON.parse(tmp));
+            // else router.push("/login");
         } else {
             console.log("");
         }
