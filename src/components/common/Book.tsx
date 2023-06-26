@@ -83,7 +83,7 @@ const Book: FC<BookProps> = ({ isbn, name, coverUrl, description, _id, fetchBook
                     Show More
                 </Button>
                 <IconButton>
-                    <Edit onClick={() => router.push("/dashboard/book/update")} />
+                    <Edit onClick={() => router.push("/dashboard/book/update/" + _id)} />
                 </IconButton>
                 <IconButton color="error" onClick={() => handleClickOpen(_id)}>
                     <Delete />
